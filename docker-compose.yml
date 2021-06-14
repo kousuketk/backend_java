@@ -1,11 +1,45 @@
 version: '3.6'
 services:
+  mysql:
+    image: mysql:5.7
+    expose:
+      - '3306'
+    ports:
+      - 3306:3306
+    environment: 
+      MYSQL_DATABASE: sample_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: rootpass
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      # 起動スクリプト
+      - ./docker/sql:/docker-entrypoint-initdb.d
+      # 永続化するときにマウントするdir
+      - ./docker/mysql/volumes:/var/lib/mysql
+    networks:
+      - app-net
   app:
     image: openjdk:16
     container_name: app
+    environment: 
+      MYSQL_DATABASE: sample_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: rootpass
+    depends_on: 
+      - mysql
+    links:
+      - mysql
     ports:
       - 8080:8080
     tty: true
     volumes:
       - ./server:/srv:cached
     working_dir: /srv
+    networks:
+      - app-net
+
+networks:
+  app-net:
+    driver: bridge

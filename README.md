@@ -30,3 +30,16 @@ $ curl http://localhost:8080/test/json -X POST -H 'Content-Type: application/jso
   "value2": "bar_ok2"
 }
 ```
+
+### mysql connect
+```
+mysql -u root -p -h localhost -P 3307 --protocol=tcp
+docker exec -it backend_java_mysql_1 bash
+```
+
+### others
+- docker内でvim
+```
+apt-get update
+apt-get install vim
+```
