@@ -1,5 +1,5 @@
 # backend_java
-docker-compose + Java + Spring Boot
+docker-compose + Java + Spring Boot + mysql
 
 ### start
 - deamonで立ち上げてbashに入る
