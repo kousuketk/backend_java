@@ -67,6 +67,7 @@ apt-get install vim
     "email": "eeee@email.com"
   }
 ]
+```
 
 2. application.propertiesの場所を変更する(configフォルダを作る)→同じ
 3. 実行時に指定するとエラー
@@ -80,4 +81,4 @@ java -jar build/libs/api-0.0.1-SNAPSHOT.jar --spring.datasource.driver-class-nam
 com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
 ```
 →/usersや/user/postにアクセスするとinternail server errorが帰ってくる
-```
+→　どのようにapplication.propertiesを指定すれば、mysqlとコネクション(データのやり取り)できるのか？
