@@ -1,6 +1,6 @@
-DROP database if exists sample_db;
-CREATE DATABASE sample_db;
-USE sample_db;
+DROP database if exists sample_db2;
+CREATE DATABASE sample_db2;
+USE sample_db2;
 
 DROP TABLE IF EXISTS users;
 CREATE TABLE IF NOT EXISTS users(
@@ -12,4 +12,5 @@ CREATE TABLE IF NOT EXISTS users(
 
 INSERT INTO users(id, name, email) VALUES(1, 'test_user1', 'test_user1@test.com');
 INSERT INTO users(id, name, email) VALUES(2, 'test_user2', 'test_user2@test.com');
-INSERT INTO users(id, name, email) VALUES(3, 'test_user2dd', 'test_user2@test.com01');
+INSERT INTO users(id, name, email) VALUES(3, 'test_user3', 'test_user3@test.com');
+INSERT INTO users(id, name, email) VALUES(4, 'test_user4', 'test_user4@test.com');

@@ -23,21 +23,19 @@ public class UserController {
 		return new User(4, "saf", "eeee@email.com");
 	}
 
-	@RequestMapping(value = "/user/1", method = RequestMethod.GET)
-	@ResponseBody
-	public User getUserByName(@PathVariable String name) {
-		return userService.findUserByName("test_user1");
-	}
-
 	@RequestMapping(value = "/user/test", method = RequestMethod.GET)
 	public User getUserByName2() {
 		return userService.findUserByName("test_user1");
 	}
 
 	@RequestMapping(value = "/users", method = RequestMethod.GET)
-	public List<User> getUser() {
-		List<User> users = userService.findUsers();
-		return users;
+	List<User> getUsers() {
+		return userService.findUsers();
+	}
+
+	@RequestMapping(path = "/user/post", method = RequestMethod.POST)
+	public User insertUser(@RequestBody User obj) {
+		return userService.save(obj);
 	}
 
 }
