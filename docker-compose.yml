@@ -1,39 +1,36 @@
 version: '3.6'
 services:
-  # db:
-  #   image: mysql:5.7
-  #   container_name: db
-  #   ports:
-  #     - 3306:3306
-  #   command: --port 3306
-  #   environment: 
-  #     MYSQL_ROOT_PASSWORD: rootpass
-  #     MYSQL_DATABASE: springdb
-  #   volumes:
-  #     # 起動スクリプト
-  #     - ./docker/sql:/docker-entrypoint-initdb.d
-  #     # 永続化するときにマウントするdir
-  #     - ./docker/mysql/volumes:/var/lib/mysql
-  #   command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
-  #   networks: 
-  #     - app-net
-
-  app:
-    image: openjdk:16
-    container_name: app
+  dbserver:
+    container_name: mysql_java
+    image: mysql:5.7
+    environment: 
+      MYSQL_DATABASE: springdb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: rootpass
+    expose:
+      - 3306
     ports:
-      - 8080:8080
-    tty: true
-    # depends_on: 
-    #   - db
-    # links:
-    #   - db
-    # networks: 
-    #   - app-net
+      - 3306:3306
+    volumes:
+      # 起動スクリプト
+      - ./docker/sql:/docker-entrypoint-initdb.d
+      # 永続化するときにマウントするdir
+      - ./docker/mysql/volumes:/var/lib/mysql
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+  app:
+    container_name: spring_app
+    image: openjdk:16
+    depends_on: 
+      - dbserver
+    ports:
+      - "8080:8080"
     volumes:
       - ./server:/srv:cached
+    environment: 
+      spring.datasource.DriverClassName: "com.mysql.cj.jdbc.Driver"
+      spring.datasource.url: "jdbc:mysql://dbserver/springdb"
+      spring.datasource.username: "user"
+      spring.datasource.password: "password"
     working_dir: /srv
-
-# networks: 
-#   app-net:
-#     driver: bridge
+    tty: true
