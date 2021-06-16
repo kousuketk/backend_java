@@ -1,45 +1,39 @@
 version: '3.6'
 services:
-  mysql:
-    image: mysql:5.7
-    expose:
-      - '3306'
-    ports:
-      - 3306:3306
-    environment: 
-      MYSQL_DATABASE: sample_db
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
-      MYSQL_ROOT_PASSWORD: rootpass
-    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
-    volumes:
-      # 起動スクリプト
-      - ./docker/sql:/docker-entrypoint-initdb.d
-      # 永続化するときにマウントするdir
-      - ./docker/mysql/volumes:/var/lib/mysql
-    networks:
-      - app-net
+  # db:
+  #   image: mysql:5.7
+  #   container_name: db
+  #   ports:
+  #     - 3306:3306
+  #   command: --port 3306
+  #   environment: 
+  #     MYSQL_ROOT_PASSWORD: rootpass
+  #     MYSQL_DATABASE: springdb
+  #   volumes:
+  #     # 起動スクリプト
+  #     - ./docker/sql:/docker-entrypoint-initdb.d
+  #     # 永続化するときにマウントするdir
+  #     - ./docker/mysql/volumes:/var/lib/mysql
+  #   command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+  #   networks: 
+  #     - app-net
+
   app:
     image: openjdk:16
     container_name: app
-    environment: 
-      MYSQL_DATABASE: sample_db
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
-      MYSQL_ROOT_PASSWORD: rootpass
-    depends_on: 
-      - mysql
-    links:
-      - mysql
     ports:
       - 8080:8080
     tty: true
+    # depends_on: 
+    #   - db
+    # links:
+    #   - db
+    # networks: 
+    #   - app-net
     volumes:
       - ./server:/srv:cached
     working_dir: /srv
-    networks:
-      - app-net
 
-networks:
-  app-net:
-    driver: bridge
+# networks: 
+#   app-net:
+#     driver: bridge

@@ -1,6 +1,6 @@
-DROP database if exists sample_db2;
-CREATE DATABASE sample_db2;
-USE sample_db2;
+DROP database if exists springdb;
+CREATE DATABASE springdb;
+USE springdb;
 
 DROP TABLE IF EXISTS users;
 CREATE TABLE IF NOT EXISTS users(
