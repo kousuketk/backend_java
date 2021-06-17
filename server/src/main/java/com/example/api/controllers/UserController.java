@@ -17,25 +17,23 @@ public class UserController {
 	@Autowired
   UserService userService;
 
-	@RequestMapping(value = "/user", method = RequestMethod.GET)
-	public User userGet() {
-		// return userRepository.findAll();
-		return new User(4, "saf", "eeee@email.com");
-	}
-
-	@RequestMapping(value = "/user/test", method = RequestMethod.GET)
-	public User getUserByName2() {
-		return userService.findUserByName("test_user1");
-	}
-
-	@RequestMapping(value = "/users", method = RequestMethod.GET)
-	List<User> getUsers() {
+	@RequestMapping(path = "/users", method = RequestMethod.GET)
+	public List<User> getUsers() {
 		return userService.findUsers();
 	}
+	// ---------------------------not yet-------------------------------------------------
+	// @RequestMapping(path = "/users/{userId}", method = RequestMethod.GET)
+	// public Optional<User> getOneUser(@PathVariable("userId") Integer id) {
+	// 	return userService.findOneUser(id);
+	// }
 
-	@RequestMapping(path = "/user/post", method = RequestMethod.POST)
-	public User insertUser(@RequestBody User obj) {
-		return userService.save(obj);
-	}
+	// @RequestMapping(path = "/users", method = RequestMethod.POST)
+	// public User createUser(@RequestBody User obj) {
+	// 	return userService.createUser(obj);
+	// }
 
+	// @RequestMapping(path = "/users/{userId}", method = RequestMethod.DELETE)
+	// public boolean deleteById(@PathVariable("userId") Integer id) {
+	// 	return userService.deleteById(id);
+	// }
 }
