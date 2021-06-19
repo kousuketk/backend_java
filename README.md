@@ -5,7 +5,7 @@ docker-compose + Java + Spring Boot + mysql
 - deamonで立ち上げてbashに入る
 ```
 $ docker-compose up -d
-$ docker-compose exec app bash
+$ docker exec -it spring_app bash
 ```
 - bashからbuild, 起動
 ```
@@ -25,7 +25,7 @@ $ curl http://localhost:8080/test/json -X POST -H 'Content-Type: application/jso
 }
 ```
 
-- all responses
+### all responses
 ```
 $ curl http://localhost:8080/users/ | jq .
 $ curl http://localhost:8080/users/{user_id} | jq . 
@@ -34,7 +34,8 @@ $ curl -X PUT -H 'Content-Type:application/json' -d '{"id":1, "test_name":"名�
 $ curl -X DELETE -H 'Content-Type:application/json'  localhost:8080/users/{user_id} | jq .
 ```
 
-### mysql connect
+### look mysql
 ```
-docker exec -it backend_java_mysql_1 bash
+$ docker exec -it mysql_java bash
+root@:/# mysql -u root -p
 ```
