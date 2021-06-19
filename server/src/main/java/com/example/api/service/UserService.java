@@ -18,14 +18,8 @@ public class UserService {
     return result;
   }
 
-  public Optional<User> findOneUser(Integer id) {
-    // User result  = userRepository.getOne(id);
+  public Optional<User> findById(Integer id) {
     Optional<User> result = userRepository.findById(id);
-    return result;
-  }
-
-  public User findUserByName(String name) {
-    User result = userRepository.findByName(name);
     return result;
   }
 
@@ -34,8 +28,12 @@ public class UserService {
     return result;
   }
 
-  public boolean deleteById(Integer id) {
+  public User updateUser(User obj) {
+    User result = userRepository.save(obj);
+    return result;
+  }
+
+  public void deleteById(Integer id) {
     userRepository.deleteById(id);
-    return true;
   }
 }
