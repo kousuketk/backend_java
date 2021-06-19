@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 // import org.springframework.weg.bind.annotation*;でもいい
 
 @RestController
-@RequestMapping(path = "/test")
+@RequestMapping(path = "/api/test")
 public class TestController {
     @RequestMapping(method = RequestMethod.GET)
     public String getTest() {

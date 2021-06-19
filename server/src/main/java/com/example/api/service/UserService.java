@@ -14,26 +14,26 @@ public class UserService {
   UserRepository userRepository;
 
   public List<User> findUsers() {
-    List<User> result = userRepository.findAll();
-    return result;
+    List<User> users = userRepository.findAll();
+    return users;
   }
 
-  public Optional<User> findById(Integer id) {
-    Optional<User> result = userRepository.findById(id);
-    return result;
+  public Optional<User> findById(Integer params_id) {
+    Optional<User> user = userRepository.findById(params_id);
+    return user;
   }
 
-  public User createUser(User obj) {
-    User result = userRepository.save(obj);
-    return result;
+  public User createUser(User params_user) {
+    User user = userRepository.save(params_user);
+    return user;
   }
 
-  public User updateUser(User obj) {
-    User result = userRepository.save(obj);
-    return result;
+  public User updateUser(User params_user) {
+    User user = userRepository.save(params_user);
+    return user;
   }
 
-  public void deleteById(Integer id) {
-    userRepository.deleteById(id);
+  public void deleteById(Integer params_id) {
+    userRepository.deleteById(params_id);
   }
 }

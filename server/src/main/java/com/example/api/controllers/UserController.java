@@ -14,31 +14,36 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping(path = "/api/users")
 public class UserController {
 	@Autowired
   UserService userService;
 
-	@RequestMapping(path = "/users", method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	public List<User> getUsers() {
-		return userService.findUsers();
+		List<User> result = userService.findUsers();
+		return result;
 	}
-	@RequestMapping(path = "/users/{userId}", method = RequestMethod.GET)
-	public Optional<User> getOneUser(@PathVariable("userId") Integer id) {
-		return userService.findById(id);
-	}
-
-	@RequestMapping(path = "/users", method = RequestMethod.POST)
-	public User createUser(@RequestBody User obj) {
-		return userService.createUser(obj);
+	@RequestMapping(path = "/{userId}", method = RequestMethod.GET)
+	public Optional<User> getOneUser(@PathVariable("userId") Integer params_id) {
+		Optional<User> result = userService.findById(params_id);
+		return result;
 	}
 
-	@RequestMapping(path = "/users/{userId}", method = RequestMethod.PUT)
-	public User updateUser(@PathVariable("userId") Integer id, @RequestBody User obj) {
-		return userService.updateUser(obj);
+	@RequestMapping(method = RequestMethod.POST)
+	public User createUser(@RequestBody User params_user) {
+		User result = userService.createUser(params_user);
+		return result;
 	}
 
-	@RequestMapping(path = "/users/{userId}", method = RequestMethod.DELETE)
-	public void deleteById(@PathVariable("userId") Integer id) {
-		userService.deleteById(id);
+	@RequestMapping(path = "/{userId}", method = RequestMethod.PUT)
+	public User updateUser(@PathVariable("userId") Integer params_id, @RequestBody User params_user) {
+		User result = userService.updateUser(params_user);
+		return result;
+	}
+
+	@RequestMapping(path = "/{userId}", method = RequestMethod.DELETE)
+	public void deleteById(@PathVariable("userId") Integer params_id) {
+		userService.deleteById(params_id);
 	}
 }
