@@ -35,4 +35,10 @@ out/
 
 ### VS Code ###
 .vscode/settings.json
+
+### docker ###
 docker/mysql/volumes
+docker/redis
+
+### othres ###
+dump.rdb

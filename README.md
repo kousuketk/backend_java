@@ -34,8 +34,11 @@ $ curl -X PUT -H 'Content-Type:application/json' -d '{"id":1, "name":"tupdated_n
 $ curl -X DELETE -H 'Content-Type:application/json'  localhost:8080/api/users/{user_id} | jq .
 ```
 
-### look mysql
+### look mysql, redis
 ```
 $ docker exec -it mysql_java bash
 root@:/# mysql -u root -p
+
+$ docker exec -it redis-server bash
+root@:/# redis-cli
 ```

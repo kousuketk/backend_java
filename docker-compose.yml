@@ -18,11 +18,23 @@ services:
       # 永続化するときにマウントするdir
       - ./docker/mysql/volumes:/var/lib/mysql
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+  redis-server:
+    container_name: redis-server
+    image: redis:latest
+    environment:
+      TZ: Asia/Tokyo
+    volumes:
+      - ./docker/redis:/data
+    ports:
+      - 6379:6379
+    restart: always
+    tty: true
   app:
     container_name: spring_app
     image: openjdk:16
     depends_on: 
       - dbserver
+      - redis-server
     ports:
       - "8080:8080"
     volumes:
