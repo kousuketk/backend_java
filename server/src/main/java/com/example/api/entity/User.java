@@ -18,7 +18,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 public class User implements Serializable {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue
   @Column(name="id")
   private Integer id;
 
@@ -46,6 +46,8 @@ public class User implements Serializable {
     this.password_digest = DigestUtils.sha256Hex(password);
     this.address = address;
     this.phone_number = phone_number;
+    this.created_at = new Date();
+    this.updated_at = new Date();
   }
 
   public User(
@@ -58,5 +60,9 @@ public class User implements Serializable {
 
   public User() {
   
+  }
+
+  public void setPassword_digest(String password) {
+    this.password_digest = DigestUtils.sha256Hex(password);
   }
 }

@@ -29,7 +29,7 @@ $ curl http://localhost:8080/api/test/example -X POST -H 'Content-Type: applicat
 ```
 $ curl http://localhost:8080/api/users | jq .
 $ curl http://localhost:8080/api/users/{user_id} | jq . 
-$ curl -X POST -H 'Content-Type:application/json' -d '{"name":"test_name", "email":"email@test.com"}' localhost:8080/api/users | jq .
+$ curl -X POST -H 'Content-Type:application/json' -d '{"name":"test_name", "self_introduction":"test_self_introduction", "email":"testuser@test.com", "password_digest":"test123", "address":"test_address", "phone_number":"00000000000"}' localhost:8080/api/users | jq .
 $ curl -X PUT -H 'Content-Type:application/json' -d '{"id":1, "name":"tupdated_name", "email":"updated_email@test.com"}' localhost:8080/api/users/1 | jq .
 $ curl -X DELETE -H 'Content-Type:application/json'  localhost:8080/api/users/{user_id} | jq .
 ```

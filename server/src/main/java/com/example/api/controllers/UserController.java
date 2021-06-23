@@ -2,6 +2,7 @@ package com.example.api.controllers;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Date;
 import com.example.api.entity.User;
 import com.example.api.repository.UserRepository;
 import com.example.api.service.UserService;
@@ -37,9 +38,11 @@ public class UserController {
 
 	// createに問題ある
 	@RequestMapping(method = RequestMethod.POST)
-	public UserInfo createUser(@RequestBody User params_user) {
-		User user = userService.createUser(params_user);
-		UserInfo result = UserSerializer.serializeUser(user);
+	public User createUser(@RequestBody User user) {
+		user.setCreated_at(new Date());
+		user.setUpdated_at(new Date());
+		user.setPassword_digest(user.getPassword_digest());
+		User result = userService.createUser(user);
 		return result;
 	}
 
