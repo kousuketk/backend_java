@@ -5,8 +5,8 @@ import java.util.Optional;
 import com.example.api.entity.User;
 import com.example.api.repository.UserRepository;
 import com.example.api.service.UserService;
-// import com.example.api.serializer.UserSerializer;
-// import com.example.api.serializer.model.UserInfo;
+import com.example.api.serializer.UserSerializer;
+import com.example.api.serializer.model.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,27 +22,31 @@ public class UserController {
   UserService userService;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public List<User> getUsers() {
+	public List<UserInfo> getUsers() {
 		List<User> users = userService.findUsers();
-		// List<UserInfo> result = UserSerializer.serializeListUsers(users);
-		// return result;
-		return users;
-	}
-	@RequestMapping(path = "/{userId}", method = RequestMethod.GET)
-	public Optional<User> getOneUser(@PathVariable("userId") Integer params_id) {
-		Optional<User> result = userService.findById(params_id);
+		List<UserInfo> result = UserSerializer.serializeListUsers(users);
 		return result;
 	}
 
+	@RequestMapping(path = "/{userId}", method = RequestMethod.GET)
+	public UserInfo getOneUser(@PathVariable("userId") Integer params_id) {
+		Optional<User> user = userService.findById(params_id);
+		UserInfo result = UserSerializer.serializeOptionalUser(user);
+		return result;
+	}
+
+	// createに問題ある
 	@RequestMapping(method = RequestMethod.POST)
-	public User createUser(@RequestBody User params_user) {
-		User result = userService.createUser(params_user);
+	public UserInfo createUser(@RequestBody User params_user) {
+		User user = userService.createUser(params_user);
+		UserInfo result = UserSerializer.serializeUser(user);
 		return result;
 	}
 
 	@RequestMapping(path = "/{userId}", method = RequestMethod.PUT)
-	public User updateUser(@PathVariable("userId") Integer params_id, @RequestBody User params_user) {
-		User result = userService.updateUser(params_user);
+	public UserInfo updateUser(@PathVariable("userId") Integer params_id, @RequestBody User params_user) {
+		User user = userService.updateUser(params_user);
+		UserInfo result = UserSerializer.serializeUser(user);
 		return result;
 	}
 
