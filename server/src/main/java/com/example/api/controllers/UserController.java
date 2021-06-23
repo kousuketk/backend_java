@@ -36,7 +36,6 @@ public class UserController {
 		return result;
 	}
 
-	// createに問題ある
 	@RequestMapping(method = RequestMethod.POST)
 	public User createUser(@RequestBody User user) {
 		user.setCreated_at(new Date());
@@ -46,15 +45,16 @@ public class UserController {
 		return result;
 	}
 
-	@RequestMapping(path = "/{userId}", method = RequestMethod.PUT)
-	public UserInfo updateUser(@PathVariable("userId") Integer params_id, @RequestBody User params_user) {
-		User user = userService.updateUser(params_user);
-		UserInfo result = UserSerializer.serializeUser(user);
-		return result;
-	}
+	// me/edit, me/deleteでやる
+	// @RequestMapping(path = "/{userId}", method = RequestMethod.PUT)
+	// public UserInfo updateUser(@PathVariable("userId") Integer params_id, @RequestBody User params_user) {
+	// 	User user = userService.updateUser(params_user);
+	// 	UserInfo result = UserSerializer.serializeUser(user);
+	// 	return result;
+	// }
 
-	@RequestMapping(path = "/{userId}", method = RequestMethod.DELETE)
-	public void deleteById(@PathVariable("userId") Integer params_id) {
-		userService.deleteById(params_id);
-	}
+	// @RequestMapping(path = "/{userId}", method = RequestMethod.DELETE)
+	// public void deleteById(@PathVariable("userId") Integer params_id) {
+	// 	userService.deleteById(params_id);
+	// }
 }
