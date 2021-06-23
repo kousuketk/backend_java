@@ -5,6 +5,8 @@ import java.util.Optional;
 import com.example.api.entity.User;
 import com.example.api.repository.UserRepository;
 import com.example.api.service.UserService;
+// import com.example.api.serializer.UserSerializer;
+// import com.example.api.serializer.model.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,8 +23,10 @@ public class UserController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public List<User> getUsers() {
-		List<User> result = userService.findUsers();
-		return result;
+		List<User> users = userService.findUsers();
+		// List<UserInfo> result = UserSerializer.serializeListUsers(users);
+		// return result;
+		return users;
 	}
 	@RequestMapping(path = "/{userId}", method = RequestMethod.GET)
 	public Optional<User> getOneUser(@PathVariable("userId") Integer params_id) {

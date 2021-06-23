@@ -9,8 +9,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Date;
+import org.apache.commons.codec.digest.DigestUtils;
 
-// getter, setterを書いたら、@Dataは必要ないかも
 @Entity
 @Data
 @Table(name="users")
@@ -22,20 +23,41 @@ public class User implements Serializable {
   private Integer id;
 
   private String name;
-
+  private String self_introduction;
   private String email;
+  private String password_digest;
+  private String address;
+  private String phone_number;
+  private Date created_at;
+  private Date updated_at;
+  private Date deleted_at;
 
-  // public User () {
-  //   super();
-  // }
-
-  public User(String name, String email) {
+  public User(
+    String name,
+    String self_introduction,
+    String email,
+    String password,
+    String address,
+    String phone_number
+  ) {
     this.name = name;
+    this.self_introduction = self_introduction;
     this.email = email;
+    this.password_digest = DigestUtils.sha256Hex(password);
+    this.address = address;
+    this.phone_number = phone_number;
+  }
+
+  public User(
+    String name,
+    String self_introduction
+  ) {
+    this.name = name;
+    this.self_introduction = self_introduction;
   }
 
   public User() {
-
+  
   }
 
 }
