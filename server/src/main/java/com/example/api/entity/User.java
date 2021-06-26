@@ -10,7 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
-import org.apache.commons.codec.digest.DigestUtils;
+// import org.apache.commons.codec.digest.DigestUtils;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Entity
 @Data
@@ -43,7 +44,8 @@ public class User implements Serializable {
     this.name = name;
     this.self_introduction = self_introduction;
     this.email = email;
-    this.password_digest = DigestUtils.sha256Hex(password);
+    // this.password_digest = DigestUtils.sha256Hex(password);
+    this.password_digest = "";
     this.address = address;
     this.phone_number = phone_number;
     this.created_at = new Date();
@@ -60,10 +62,6 @@ public class User implements Serializable {
 
   public User() {
   
-  }
-
-  public void setPassword_digest(String password) {
-    this.password_digest = DigestUtils.sha256Hex(password);
   }
 
   public void setCreated_at() {

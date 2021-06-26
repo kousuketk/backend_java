@@ -6,12 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.api.entity.User;
 import com.example.api.repository.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Service
 public class UserService {
 
   @Autowired
   UserRepository userRepository;
+
+  @Autowired
+  PasswordEncoder passwordEncoder;
 
   public List<User> findUsers() {
     List<User> users = userRepository.findAll();
@@ -29,11 +33,13 @@ public class UserService {
   }
 
   public User createUser(User params_user) {
+    params_user.setPassword_digest(passwordEncoder.encode(params_user.getPassword_digest()));
     User user = userRepository.save(params_user);
     return user;
   }
 
   public User updateUser(User params_user) {
+    params_user.setPassword_digest(passwordEncoder.encode(params_user.getPassword_digest()));
     User user = userRepository.save(params_user);
     return user;
   }
