@@ -38,7 +38,8 @@ public class UserService {
     return user;
   }
 
-  public User updateUser(User params_user) {
+  public User updateUser(Integer userId, User params_user) {
+    params_user.setId(userId);
     params_user.setPassword_digest(passwordEncoder.encode(params_user.getPassword_digest()));
     User user = userRepository.save(params_user);
     return user;

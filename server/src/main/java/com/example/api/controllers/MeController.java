@@ -59,6 +59,28 @@ public class MeController {
     } else return "already logout";
   }
 
+  @RequestMapping(path = "/me", method = RequestMethod.GET)
+	public Optional<User> getMe(HttpSession session) {
+    Integer userId = sessionInfo.getUserId();
+    Optional<User> result = userService.findById(userId);
+    return result;
+	}
+
+	@RequestMapping(path = "/me/edit", method = RequestMethod.PUT)
+	public User updateMe(HttpSession session, @RequestBody User params_user) {
+    Integer userId = sessionInfo.getUserId();
+	  User result = userService.updateUser(userId, params_user);
+	  return result;  
+	}
+
+	@RequestMapping(path = "/me/delete", method = RequestMethod.DELETE)
+	public String deleteById(HttpSession session) {
+    Integer userId = sessionInfo.getUserId();
+		userService.deleteById(userId);
+    session.invalidate();
+    return "deleted";
+	}
+
   public static class requestInfo {
     public String email;
     public String password;

@@ -43,17 +43,4 @@ public class UserController {
 		User result = userService.createUser(user);
 		return result;
 	}
-
-	// me/edit, me/deleteでやる
-	// @RequestMapping(path = "/{userId}", method = RequestMethod.PUT)
-	// public UserInfo updateUser(@PathVariable("userId") Integer params_id, @RequestBody User params_user) {
-	// 	User user = userService.updateUser(params_user);
-	// 	UserInfo result = UserSerializer.serializeUser(user);
-	// 	return result;
-	// }
-
-	// @RequestMapping(path = "/{userId}", method = RequestMethod.DELETE)
-	// public void deleteById(@PathVariable("userId") Integer params_id) {
-	// 	userService.deleteById(params_id);
-	// }
 }
