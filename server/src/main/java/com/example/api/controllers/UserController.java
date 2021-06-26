@@ -15,32 +15,53 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.apache.commons.codec.digest.DigestUtils;
 
 @RestController
-@RequestMapping(path = "/api/users")
+@RequestMapping(path = "/api")
 public class UserController {
 	@Autowired
   UserService userService;
 
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(value="/login", method=RequestMethod.POST)
+	public String login(@RequestBody requestInfo obj) {
+    List<User> user = userService.findByEmail(obj.email);
+    if(user.isEmpty()) return "login failed. user not found.";
+    String pass = user.get(0).getPassword_digest();
+    String requestPass = DigestUtils.sha256Hex(obj.password);
+		System.out.println(pass);
+		System.out.println(obj.password);
+		System.out.println(requestPass);
+    if(!pass.equals(requestPass)) return "login failed. password is not correct.";
+    return "success!";
+    // sessionidを発行して, cookie, redisに入れる
+		// sessionidの発行の仕方、ランダムでいいのか?
+		// キーと値を指定してredisにセット
+    // redisに入れるデータ(userid, createdat, expiredat) 
+		// stringRedisTemplate.opsForValue().set(key, value);
+    // Cookie cookie = new Cookie(key, value);
+    // response.addCookie(cookie);
+		// return "redisstr/set_end";
+	}
+
+	@RequestMapping(path = "/users", method = RequestMethod.GET)
 	public List<UserInfo> getUsers() {
 		List<User> users = userService.findUsers();
 		List<UserInfo> result = UserSerializer.serializeListUsers(users);
 		return result;
 	}
 
-	@RequestMapping(path = "/{userId}", method = RequestMethod.GET)
+	@RequestMapping(path = "/users/{userId}", method = RequestMethod.GET)
 	public UserInfo getOneUser(@PathVariable("userId") Integer params_id) {
 		Optional<User> user = userService.findById(params_id);
 		UserInfo result = UserSerializer.serializeOptionalUser(user);
 		return result;
 	}
 
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(path = "/users", method = RequestMethod.POST)
 	public User createUser(@RequestBody User user) {
-		user.setCreated_at(new Date());
-		user.setUpdated_at(new Date());
-		user.setPassword_digest(user.getPassword_digest());
+		user.setCreated_at();
+		user.setUpdated_at();
 		User result = userService.createUser(user);
 		return result;
 	}
@@ -57,4 +78,8 @@ public class UserController {
 	// public void deleteById(@PathVariable("userId") Integer params_id) {
 	// 	userService.deleteById(params_id);
 	// }
+	public static class requestInfo {
+    public String email;
+    public String password;
+  }
 }

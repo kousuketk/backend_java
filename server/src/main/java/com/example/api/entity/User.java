@@ -65,4 +65,12 @@ public class User implements Serializable {
   public void setPassword_digest(String password) {
     this.password_digest = DigestUtils.sha256Hex(password);
   }
+
+  public void setCreated_at() {
+    this.created_at = new Date();
+  }
+
+  public void setUpdated_at() {
+    this.updated_at = new Date();
+  }
 }

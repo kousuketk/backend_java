@@ -11,7 +11,8 @@ import com.example.api.entity.User;
 public interface UserRepository extends JpaRepository<User, Integer> {
   List<User> findAll();
   Optional<User> findById(Integer id);
-  Optional<User> findByName(String name);
+  // Optional<User> findByName(String name);
+  List<User> findByEmail(String email);
   User save(User user);
   void deleteById(Integer id);
 }

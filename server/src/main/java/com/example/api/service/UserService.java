@@ -23,6 +23,11 @@ public class UserService {
     return user;
   }
 
+  public List<User> findByEmail(String email) {
+    List<User> user = userRepository.findByEmail(email);
+    return user;
+  }
+
   public User createUser(User params_user) {
     User user = userRepository.save(params_user);
     return user;
