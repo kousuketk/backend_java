@@ -5,12 +5,12 @@ docker-compose + Java + Spring Boot + mysql
 - deamonで立ち上げてbashに入る
 ```
 $ docker-compose up -d
-$ docker exec -it spring_app bash
+$ docker exec -it spring_api1 bash
 ```
 - bashからbuild, 起動
 ```
 bash-4.4# sh gradlew build
-bash-4.4# java -jar api-0.0.1-SNAPSHOT.jar --server.port=8081
+bash-4.4# java -jar build/libs/api-0.0.1-SNAPSHOT.jar --instance.name=api1
 ```
 
 ### test
