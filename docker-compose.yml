@@ -8,8 +8,8 @@ services:
       MYSQL_USER: user
       MYSQL_PASSWORD: password
       MYSQL_ROOT_PASSWORD: rootpass
-    expose:
-      - 3306
+    # expose:
+    #   - 3306
     ports:
       - 3306:3306
     volumes:
@@ -29,20 +29,39 @@ services:
       - 6379:6379
     restart: always
     tty: true
-  app:
-    container_name: spring_app
+  app1:
+    container_name: spring_app1
     image: openjdk:16
     depends_on: 
       - dbserver
       - redis-server
     ports:
-      - "8080:8080"
+      - "8081:8081"
     volumes:
       - ./server:/srv:cached
-    environment: 
-      spring.datasource.DriverClassName: "com.mysql.cj.jdbc.Driver"
-      spring.datasource.url: "jdbc:mysql://dbserver/springdb"
-      spring.datasource.username: "user"
-      spring.datasource.password: "password"
+    working_dir: /srv
+    tty: true
+  app2:
+    container_name: spring_app2
+    image: openjdk:16
+    depends_on: 
+      - dbserver
+      - redis-server
+    ports:
+      - "8082:8082"
+    volumes:
+      - ./server:/srv:cached
+    working_dir: /srv
+    tty: true
+  app3:
+    container_name: spring_app3
+    image: openjdk:16
+    depends_on: 
+      - dbserver
+      - redis-server
+    ports:
+      - "8083:8083"
+    volumes:
+      - ./server:/srv:cached
     working_dir: /srv
     tty: true

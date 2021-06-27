@@ -10,7 +10,7 @@ $ docker exec -it spring_app bash
 - bashからbuild, 起動
 ```
 bash-4.4# sh gradlew build
-bash-4.4# java -jar build/libs/api-0.0.1-SNAPSHOT.jar
+bash-4.4# java -jar api-0.0.1-SNAPSHOT.jar --server.port=8081
 ```
 
 ### test
