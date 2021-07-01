@@ -1,5 +1,9 @@
 # backend_java
-docker-compose + Java + Spring Boot + mysql
+docker-compose + nginx + Java + Spring Boot + mysql + redis
+
+### overview
+![image](https://user-images.githubusercontent.com/42241308/124126252-73b35380-dab5-11eb-979b-d4cf96a7ac1f.png)
+
 
 ### start
 - deamonで立ち上げてbashに入る
@@ -16,7 +20,7 @@ bash-4.4# java -jar build/libs/api-0.0.1-SNAPSHOT.jar --instance.name=api1
 ### test
 ```
 $ curl http://localhost:8080/api/test
-get /test.
+get /test. by api1
 
 $ curl http://localhost:8080/api/test/example -X POST -H 'Content-Type: application/json' -d '{"value1":"foo","value2":"bar"}' | jq .
 {
@@ -30,9 +34,12 @@ $ curl http://localhost:8080/api/test/example -X POST -H 'Content-Type: applicat
 $ curl http://localhost:8080/api/users | jq .
 $ curl http://localhost:8080/api/users/{user_id} | jq . 
 $ curl -X POST -H 'Content-Type:application/json' -d '{"name":"test_name", "self_introduction":"test_self_introduction", "email":"testuser@test.com", "password_digest":"test123", "address":"test_address", "phone_number":"00000000000"}' localhost:8080/api/users | jq .
-$ curl -X PUT -H 'Content-Type:application/json' -d '{"id":1, "name":"tupdated_name", "email":"updated_email@test.com"}' localhost:8080/api/users/1 | jq .
-$ curl -X DELETE -H 'Content-Type:application/json'  localhost:8080/api/users/{user_id} | jq .
+
+// session
 $ curl http://localhost:8080/api/login -X POST -H 'Content-Type:application/json' -d '{"email":"test", "password":"test"}'
+$ curl http://localhost:8080/api/me
+$ curl http://localhost:8080/api/edit -X PUT -H 'Content-Type:application/json' -d
+$ curl http://localhost:8080/api/delete -X DELETE
 $ curl http://localhost:8080/api/logout
 ```
 
