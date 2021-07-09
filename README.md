@@ -17,7 +17,7 @@ bash-4.4# sh gradlew build
 bash-4.4# java -jar build/libs/api-0.0.1-SNAPSHOT.jar --instance.name=api1
 ```
 
-### test
+### health check
 ```
 $ curl http://localhost:8080/api/test
 get /test. by api1
@@ -29,7 +29,7 @@ $ curl http://localhost:8080/api/test/example -X POST -H 'Content-Type: applicat
 }
 ```
 
-### all responses
+### endpoints
 ```
 $ curl http://localhost:8080/api/users | jq .
 $ curl http://localhost:8080/api/users/{user_id} | jq . 
