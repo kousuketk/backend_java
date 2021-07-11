@@ -38,8 +38,8 @@ $ curl -X POST -H 'Content-Type:application/json' -d '{"name":"test_name", "self
 // session
 $ curl http://localhost:8080/api/login -X POST -H 'Content-Type:application/json' -d '{"email":"test", "password":"test"}'
 $ curl http://localhost:8080/api/me
-$ curl http://localhost:8080/api/edit -X PUT -H 'Content-Type:application/json' -d
-$ curl http://localhost:8080/api/delete -X DELETE
+$ curl http://localhost:8080/api/me/edit -X PUT -H 'Content-Type:application/json' -d
+$ curl http://localhost:8080/api/me/delete -X DELETE
 $ curl http://localhost:8080/api/logout
 ```
 
